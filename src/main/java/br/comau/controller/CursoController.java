@@ -32,7 +32,7 @@ public class CursoController {
     public ResponseEntity<Curso> getCursoById(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
         Curso curso = cursoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("NAO ACHOU CODIGO DA CLIENTE FISICA" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("NAO ACHOU CODIGO DO CURSO" + id));
         return ResponseEntity.ok().body(curso);
     }
 
@@ -48,7 +48,7 @@ public class CursoController {
             @RequestBody Curso curso) throws ResourceNotFoundException {
 
         Curso cursoObj = cursoRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("NAO ACHEI O ClienteFisica :: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("NAO ACHEI O CURSO :: " + id));
 
         curso.setId(curso.getId());
         curso.setNomeCurso(curso.getNomeCurso());
