@@ -22,15 +22,15 @@ public class Usuario implements Serializable {
     private long id;
     private String login;
     private String senha;
-    private String perfil;
-    private String pessoaFisica;
-    private String pessoaJuridica;
+    private Perfil perfil;
+    private ClienteFisica pessoaFisica;
+    private ClienteJuridica pessoaJuridica;
     private String Status;
 
     public Usuario() {
     }
 
-    public Usuario(long id, String login, String senha, String perfil, String pessoaFisica, String pessoaJuridica, String status) {
+    public Usuario(long id, String login, String senha, Perfil perfil, ClienteFisica pessoaFisica, ClienteJuridica pessoaJuridica, String status) {
         this.id = id;
         this.login = login;
         this.senha = senha;
@@ -68,27 +68,27 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public String getPerfil() {
+    public Perfil getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(String perfil) {
+    public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
     }
 
-    public String getPessoaFisica() {
+    public ClienteFisica getPessoaFisica() {
         return pessoaFisica;
     }
 
-    public void setPessoaFisica(String pessoaFisica) {
+    public void setPessoaFisica(ClienteFisica pessoaFisica) {
         this.pessoaFisica = pessoaFisica;
     }
 
-    public String getPessoaJuridica() {
+    public ClienteJuridica getPessoaJuridica() {
         return pessoaJuridica;
     }
 
-    public void setPessoaJuridica(String pessoaJuridica) {
+    public void setPessoaJuridica(ClienteJuridica pessoaJuridica) {
         this.pessoaJuridica = pessoaJuridica;
     }
 

@@ -31,14 +31,15 @@ public class Curso implements Serializable {
 
     }
 
-    public Curso(long id, String nomeCurso, String descricao, String fornecedor, String dataInicio, String dataFim, String status) {
+    public Curso(long id, String nomeCurso, String descricao, String fornecedor, String dataInicio, String dataFim) {
+        super();
         this.id = id;
         this.nomeCurso = nomeCurso;
         this.descricao = descricao;
         this.fornecedor = fornecedor;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
-        this.status = status;
+        //this.status = status;
     }
 
     public static long getSerialVersionUID() {
