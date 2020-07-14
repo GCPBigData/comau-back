@@ -7,6 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -32,6 +35,7 @@ public class ClienteFisica implements Serializable {
     public  String status;
     public  String empresa;
     public  Perfil perfil;
+    public LocalDateTime dataCadastro;
 
     /*
 @JsonFormat(pattern="dd/MM/yyyy HH:mm")
@@ -70,6 +74,7 @@ public class ClienteFisica implements Serializable {
         this.empresa = empresa;
         this.vistoDataVencimento = vistoDataVencimento;
         this.perfil = perfil;
+        this.dataCadastro = LocalDateTime.now();
 
     }
 
@@ -175,6 +180,15 @@ public class ClienteFisica implements Serializable {
 
     public void setPerfil(Perfil perfil) {
         this.perfil = perfil;
+    }
+
+    public String getDataCadastro() {
+        DateTimeFormatter sdf = DateTimeFormatter.ofPattern ("dd/MM/yyyy HH:mm");
+        return sdf.format(dataCadastro);
+    }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
     }
 
     /* @PrePersist
