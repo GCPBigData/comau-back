@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author Jose R F Junior
@@ -30,8 +31,8 @@ public class Curso implements Serializable {
     String nomeCurso;
     String descricao;
     String fornecedor;
-    String dataInicio;
-    String dataFim;
+    LocalDateTime dataInicio;
+    LocalDateTime dataFim;
     String status;
 
 }

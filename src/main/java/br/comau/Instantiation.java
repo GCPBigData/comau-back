@@ -48,8 +48,8 @@ public class Instantiation implements CommandLineRunner {
         clienteFisicaRepositor.saveAll(Arrays.asList(lourranio,fred,maria,pedro,joao,ze,fernandes));
         //clienteJuridicaRepositor.saveAll(Arrays.asList(googolplex,googole));
 
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime end = now.plusMonths(3); //Adiciona 3 meses para o fim do curso (exemplo)
+        //LocalDateTime now = LocalDateTime.now();
+        //LocalDateTime end = now.plusMonths(3); //Adiciona 3 meses para o fim do curso (exemplo)
 
        // Curso java = new Curso(1,"Curso JAVA", "Programacao Backend com java", "Coursera", sdf.format(now), sdf.format(end));
        // Curso angular =new Curso(2,"Curso ANGULAR", "Programacao Frontend com o capeta", "Demonho", "06/06/2020", "10/11/2020");
