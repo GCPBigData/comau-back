@@ -39,13 +39,28 @@ public class ClienteFisica implements Serializable {
     @Email String email;
     String status;
     String empresa;
-    List<Perfil> perfils;
-    List<TipoCliente> tipoClientes;
-    String dataCadastro;
-    String vistoDataVencimento;
+    Perfil perfil;
+    TipoCliente tipoClienteFisica;
+    LocalDateTime dataCadastro;
+    LocalDateTime vistoDataVencimento;
 
-    //LocalDateTime dataCadastro = LocalDateTime.now();
-    //LocalDateTime vistoDataVencimento = LocalDateTime.now().plusMonths(3); //adiciona mais 3 meses
-
+    public ClienteFisica(int id, String nome, String cpf,
+                         TipoCliente tipo, String endereco, String telefone,
+                         String email, String status, String empresa, Perfil perfil,
+                         LocalDateTime dataCadastro, LocalDateTime vistoDataVencimento) {
+        super();
+        this.id = id;
+        this.nome = nome;
+        this.cpf = cpf;
+        this.tipoClienteFisica = tipo;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.email = email;
+        this.status = status;
+        this.empresa = empresa;
+        this.vistoDataVencimento = vistoDataVencimento;
+        this.perfil = perfil;
+        this.dataCadastro = dataCadastro;
+     }
 
 }

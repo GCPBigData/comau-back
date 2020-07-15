@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,29 +32,29 @@ public class Instantiation implements CommandLineRunner {
 
         DateTimeFormatter sdf = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
         //sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-/*
-        //ClienteFisica herick = new ClienteFisica(null,"Herick Marques", "64525430249", Tip, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", sdf.parse("21/06/2020"));
-        ClienteFisica lourranio = new ClienteFisica(1,"Lourranio Simoes Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", "21/06/2020", Perfil.ADMIN);
-        ClienteFisica fred = new ClienteFisica(2,"Fred Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex",  "21/06/2020", Perfil.CLIENTE);
-        ClienteFisica maria = new ClienteFisica(3,"Maria Avila Toledo", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex",  "21/06/2020",Perfil.CLIENTE);
-        ClienteFisica pedro = new ClienteFisica(4,"Pedro Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex",  "21/06/2020",Perfil.CLIENTE);
-        ClienteFisica joao = new ClienteFisica(5,"Joao Simoes Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex",  "21/06/2020",Perfil.CLIENTE);
-        ClienteFisica ze = new ClienteFisica(6,"Ze Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex",  "21/06/2020",Perfil.CLIENTE);
-        ClienteFisica fernandes = new ClienteFisica(7,"Fred Avila Toledo", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex",  "21/06/2020", Perfil.ADMIN);
 
-        ClienteJuridica googolplex = new ClienteJuridica(1,"googolplex","googolplex","645254602499",TipoCliente.PESSOAJURIDICA, "+56 921555888","googolplex@gmail.com","TI", "Ativa","http://googolplex.com");
-        ClienteJuridica googole = new ClienteJuridica(2,"google","google","645254602499",TipoCliente.PESSOAJURIDICA, "+56 921555888","googolplex@gmail.com","TI", "Ativa","http://google.com");
+        //ClienteFisica herick = new ClienteFisica(null,"Herick Marques", "64525430249", Tip, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", sdf.parse("21/06/2020"));
+        ClienteFisica lourranio = new ClienteFisica(1,"Lourranio Simoes Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", Perfil.ADMIN, LocalDateTime.now(), LocalDateTime.now().plusMonths(3));
+        ClienteFisica fred = new ClienteFisica(2,"Fred Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", Perfil.CLIENTE, LocalDateTime.now(), LocalDateTime.now().plusMonths(3));
+        ClienteFisica maria = new ClienteFisica(3,"Maria Avila Toledo", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", Perfil.CLIENTE, LocalDateTime.now(), LocalDateTime.now().plusMonths(3));
+        ClienteFisica pedro = new ClienteFisica(4,"Pedro Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", Perfil.CLIENTE, LocalDateTime.now(), LocalDateTime.now().plusMonths(3));
+        ClienteFisica joao = new ClienteFisica(5,"Joao Simoes Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", Perfil.CLIENTE, LocalDateTime.now(), LocalDateTime.now().plusMonths(3));
+        ClienteFisica ze = new ClienteFisica(6,"Ze Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex" ,Perfil.CLIENTE, LocalDateTime.now(), LocalDateTime.now().plusMonths(3));
+        ClienteFisica fernandes = new ClienteFisica(7,"Fred Avila Toledo", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex",  Perfil.ADMIN, LocalDateTime.now(), LocalDateTime.now().plusMonths(3));
+
+        //ClienteJuridica googolplex = new ClienteJuridica(1,"googolplex","googolplex","645254602499",TipoCliente.PESSOAJURIDICA, "+56 921555888","googolplex@gmail.com","TI", "Ativa","http://googolplex.com");
+        //ClienteJuridica googole = new ClienteJuridica(2,"google","google","645254602499",TipoCliente.PESSOAJURIDICA, "+56 921555888","googolplex@gmail.com","TI", "Ativa","http://google.com");
 
         clienteFisicaRepositor.saveAll(Arrays.asList(lourranio,fred,maria,pedro,joao,ze,fernandes));
-        clienteJuridicaRepositor.saveAll(Arrays.asList(googolplex,googole));
+        //clienteJuridicaRepositor.saveAll(Arrays.asList(googolplex,googole));
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime end = now.plusMonths(3); //Adiciona 3 meses para o fim do curso (exemplo)
 
-        Curso java = new Curso(1,"Curso JAVA", "Programacao Backend com java", "Coursera", sdf.format(now), sdf.format(end));
-        Curso angular =new Curso(2,"Curso ANGULAR", "Programacao Frontend com o capeta", "Demonho", "06/06/2020", "10/11/2020");
+       // Curso java = new Curso(1,"Curso JAVA", "Programacao Backend com java", "Coursera", sdf.format(now), sdf.format(end));
+       // Curso angular =new Curso(2,"Curso ANGULAR", "Programacao Frontend com o capeta", "Demonho", "06/06/2020", "10/11/2020");
 
-        cursoRepositor.saveAll(Arrays.asList(java,angular));
-*/
+        //cursoRepositor.saveAll(Arrays.asList(java,angular));
+
     }
 }
