@@ -37,7 +37,7 @@ public class ClienteFisica implements Serializable {
     String endereco;
     String telefone;
     @Email String email;
-    String status;
+    Status status;
     String empresa;
     Perfil perfil;
     TipoCliente tipoClienteFisica;
@@ -46,7 +46,7 @@ public class ClienteFisica implements Serializable {
 
     public ClienteFisica(int id, String nome, String cpf,
                          TipoCliente tipo, String endereco, String telefone,
-                         String email, String status, String empresa, Perfil perfil,
+                         String email, Status status, String empresa, Perfil perfil,
                          LocalDateTime dataCadastro, LocalDateTime vistoDataVencimento) {
         super();
         this.id = id;

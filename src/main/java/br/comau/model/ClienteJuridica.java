@@ -36,7 +36,7 @@ public class ClienteJuridica implements Serializable {
     String telefone;
     String email;
     String obs;
-    String status;
+    Status status;
     String logo;
 
 }
