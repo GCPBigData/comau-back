@@ -1,30 +1,24 @@
 package br.comau.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import br.comau.dto.ClienteFisicaDTO;
 import br.comau.model.ClienteFisica;
 import br.comau.repository.ClienteFisicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.comau.exception.ResourceNotFoundException;
 import br.comau.service.SequenceGeneratorService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/api/v1/clientefisica")
 public class ClienteFisicaController {
@@ -48,6 +42,19 @@ public class ClienteFisicaController {
         ClienteFisica clienteFisica = clienteFisicaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("NAO ACHOU CODIGO DA CLIENTE FISICA" + id));
         return ResponseEntity.ok().body(clienteFisica);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value="/listaFiltro", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public  ResponseEntity<List<ClienteFisicaDTO>> findAll(){
+        List<ClienteFisica> list = clienteFisicaRepository.findAll();
+        List<ClienteFisicaDTO> listDto = list.parallelStream()
+                .sorted(Comparator.comparing(ClienteFisica::getId).reversed())
+                .map(ClienteFisicaDTO::new)
+                .limit(10)
+                .collect( Collectors.toList());
+        HttpStatus status = list != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        return ResponseEntity.ok().body(listDto);
     }
 
     @PostMapping("/clientefisica/post")
