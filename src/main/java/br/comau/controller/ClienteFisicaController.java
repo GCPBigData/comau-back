@@ -7,6 +7,9 @@ import java.util.Map;
 import br.comau.model.ClienteFisica;
 import br.comau.repository.ClienteFisicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +29,8 @@ import br.comau.service.SequenceGeneratorService;
 @RequestMapping(value = "/api/v1/clientefisica")
 public class ClienteFisicaController {
 
+    @Autowired
+    MongoTemplate mongoTemplate;
     @Autowired
     private ClienteFisicaRepository clienteFisicaRepository;
 
@@ -86,4 +91,18 @@ public class ClienteFisicaController {
         response.put("clientefisica", Boolean.TRUE);
         return response;
     }
+
+    @GetMapping("/teste/{criteria}")
+    public List<ClienteFisica> getAllClienteCriteria(@PathVariable(value = "criteria") String crit)
+    {
+        Query query = new Query();
+        query.addCriteria(
+                new Criteria().orOperator(
+                        Criteria.where("nome").regex(crit),
+                        Criteria.where("cpf").regex(crit)
+                )
+        );
+        return mongoTemplate.find(query, ClienteFisica.class);
+    }
+
 }
