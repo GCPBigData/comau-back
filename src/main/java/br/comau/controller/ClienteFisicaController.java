@@ -52,7 +52,6 @@ public class ClienteFisicaController {
         List<ClienteFisica> list = clienteFisicaRepository.findAll();
         List<ClienteFisicaDTO> listDto = list.parallelStream()
                 .sorted(Comparator.comparing(ClienteFisica::getId).reversed())
-                .filter(p -> p.getStatus().equals("Ativo"))
                 .map(ClienteFisicaDTO::new)
                 .limit(10)
                 .collect(Collectors.toList());
