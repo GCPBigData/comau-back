@@ -24,7 +24,7 @@ public class Recurso implements Serializable {
     private String funcao;
     private String curso;
     private String pessoFisicaResponsavel; // reponsavel
-    private String pessoFisicaEstrangeiro; // pode ser um estrangeiro com visto
+    private String pessoFisicaEstrangeiro; // pode ser um estrangeiro com visto / Não seria então TIPO?
     private String pessoaJuridica;
     private String projeto;
     private String status;

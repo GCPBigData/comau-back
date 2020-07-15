@@ -12,6 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Herick N Marques
+ * herick.marques@gmail.com
+ * Pocos de Caldas - Brazil 12/07/2020
+ */
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value = "/api/v1/recurso")

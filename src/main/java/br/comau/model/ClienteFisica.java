@@ -7,6 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -25,13 +28,14 @@ public class ClienteFisica implements Serializable {
     private long id;
     public  String nome;
     public  String cpf;
-    public  String tipo;
+    public  TipoCliente tipo;
     public  String endereco;
     public  String telefone;
     public  String email;
     public  String status;
     public  String empresa;
-    //public  String perfil; quando for fazer o login vai ter que relacionar
+    public  Perfil perfil;
+    public LocalDateTime dataCadastro;
 
     /*
 @JsonFormat(pattern="dd/MM/yyyy HH:mm")
@@ -54,9 +58,9 @@ public class ClienteFisica implements Serializable {
     }*/
 
     public ClienteFisica(long id, String nome, String cpf,
-                         String tipo, String endereco, String telefone,
+                         TipoCliente tipo, String endereco, String telefone,
                          String email, String status, String empresa,
-                         String vistoDataVencimento
+                         String vistoDataVencimento, Perfil perfil
                          ) {
         super();
         this.id = id;
@@ -69,7 +73,8 @@ public class ClienteFisica implements Serializable {
         this.status = status;
         this.empresa = empresa;
         this.vistoDataVencimento = vistoDataVencimento;
-        //addPerfil(Perfil.CLIENTE);
+        this.perfil = perfil;
+        this.dataCadastro = LocalDateTime.now();
 
     }
 
@@ -105,11 +110,11 @@ public class ClienteFisica implements Serializable {
         this.cpf = cpf;
     }
 
-    public String getTipo() {
+    public TipoCliente getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoCliente tipo) {
         this.tipo = tipo;
     }
 
@@ -169,9 +174,24 @@ public class ClienteFisica implements Serializable {
         this.vistoDataVencimento = vistoDataVencimento;
     }
 
+    public Perfil getPerfil() {
+        return perfil;
+    }
 
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
 
-   /* @PrePersist
+    public String getDataCadastro() {
+        DateTimeFormatter sdf = DateTimeFormatter.ofPattern ("dd/MM/yyyy HH:mm");
+        return sdf.format(dataCadastro);
+    }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    /* @PrePersist
     public void prePersist() {
         final Date atual = new Date();
     }*/
@@ -181,17 +201,14 @@ public class ClienteFisica implements Serializable {
 
         NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        StringBuilder builder = new StringBuilder();
 
-        builder.append("Código: ");
-        builder.append(getId());
+        return "Código: " +
+                getId() +
 
-        //builder.append(", Data: ");
-        //builder.append(sdf.format(getVistoDataVencimento()));
+                //builder.append(", Data: ");
+                //builder.append(sdf.format(getVistoDataVencimento()));
 
-        builder.append(", Cliente: ");
-        builder.append(getNome());
-
-        return builder.toString();
+                ", Cliente: " +
+                getNome();
 }
 }

@@ -23,7 +23,7 @@ public class ClienteJuridica implements Serializable {
     public  String razaoSocial;
     public  String nomeFantasia;
     public  String cnpj;
-    public  String tipo;
+    public  TipoCliente tipo;
     public  String endereco;
     public  String telefone;
     public  String email;
@@ -35,7 +35,7 @@ public class ClienteJuridica implements Serializable {
     }
 
     public ClienteJuridica(long id, String razaoSocial,
-                           String nomeFantasia, String cnpj, String tipo,
+                           String nomeFantasia, String cnpj, TipoCliente tipo,
                            String telefone, String email, String obs, String status,
                            String endereco
     ) {
@@ -49,7 +49,7 @@ public class ClienteJuridica implements Serializable {
         this.email = email;
         this.obs = obs;
         this.status = status;
-        this.logo = logo;
+        //this.logo = logo;
     }
 
     public static long getSerialVersionUID() {
@@ -88,11 +88,11 @@ public class ClienteJuridica implements Serializable {
         this.cnpj = cnpj;
     }
 
-    public String getTipo() {
+    public TipoCliente getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoCliente tipo) {
         this.tipo = tipo;
     }
 
