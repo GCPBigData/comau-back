@@ -25,6 +25,7 @@ public class ClienteFisicaController {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
     @Autowired
     private ClienteFisicaRepository clienteFisicaRepository;
 
@@ -44,15 +45,31 @@ public class ClienteFisicaController {
         return ResponseEntity.ok().body(clienteFisica);
     }
 
+
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value="/listaFiltro", method=RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public  ResponseEntity<List<ClienteFisicaDTO>> findAll(){
+    @RequestMapping(value = "/listaFiltro", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ClienteFisicaDTO>> findAll(){
         List<ClienteFisica> list = clienteFisicaRepository.findAll();
         List<ClienteFisicaDTO> listDto = list.parallelStream()
                 .sorted(Comparator.comparing(ClienteFisica::getId).reversed())
+                .filter(p -> p.getStatus().equals("Ativo"))
                 .map(ClienteFisicaDTO::new)
                 .limit(10)
-                .collect( Collectors.toList());
+                .collect(Collectors.toList());
+        HttpStatus status = list != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+        return ResponseEntity.ok().body(listDto);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/listaFiltroAtivo", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ClienteFisicaDTO>> findAllAtivo(){
+        List<ClienteFisica> list = clienteFisicaRepository.findAll();
+        List<ClienteFisicaDTO> listDto = list.parallelStream()
+                .sorted(Comparator.comparing(ClienteFisica::getId).reversed())
+                .filter(p -> p.getStatus().equals("Ativo"))
+                .map(ClienteFisicaDTO::new)
+                .limit(10)
+                .collect(Collectors.toList());
         HttpStatus status = list != null ? HttpStatus.OK : HttpStatus.NOT_FOUND;
         return ResponseEntity.ok().body(listDto);
     }
@@ -82,7 +99,7 @@ public class ClienteFisicaController {
         clienteFisica.setEmpresa(clienteFisica.getEmpresa());
         clienteFisica.setVistoDataVencimento(clienteFisica.getVistoDataVencimento());
 
-        final ClienteFisica updatedClienteFisica = clienteFisicaRepository.save(clienteFisica);
+        clienteFisicaRepository.save(clienteFisica);
         return ResponseEntity.ok(clienteFisica);
     }
 
@@ -98,15 +115,22 @@ public class ClienteFisicaController {
         response.put("clientefisica", Boolean.TRUE);
         return response;
     }
-
-    @GetMapping("/teste/{criteria}")
+    /*
+     *    https://www.baeldung.com/queries-in-spring-data-mongodb
+     *    https://www.journaldev.com/18156/spring-boot-mongodb
+     */
+    @GetMapping("/listaFiltroFull/{criteria}")
     public List<ClienteFisica> getAllClienteCriteria(@PathVariable(value = "criteria") String crit)
     {
         Query query = new Query();
         query.addCriteria(
                 new Criteria().orOperator(
                         Criteria.where("nome").regex(crit),
-                        Criteria.where("cpf").regex(crit)
+                        Criteria.where("cpf").regex(crit),
+                        Criteria.where("email").regex(crit),
+                        Criteria.where("telefone").regex(crit),
+                        Criteria.where("empresa").regex(crit),
+                        Criteria.where("status").regex(crit)
                 )
         );
         return mongoTemplate.find(query, ClienteFisica.class);

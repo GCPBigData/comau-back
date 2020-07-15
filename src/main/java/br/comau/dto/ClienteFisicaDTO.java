@@ -8,7 +8,9 @@ public class ClienteFisicaDTO implements Serializable {
 
     private Long id;
     private String nome;
-    private String cnpj;
+    private String cpf;
+    private String telefone;
+    private String email;
 
     public ClienteFisicaDTO(){
 
@@ -17,7 +19,9 @@ public class ClienteFisicaDTO implements Serializable {
     public ClienteFisicaDTO(ClienteFisica objClienteFisica){
         id = objClienteFisica.getId();
         nome = objClienteFisica.getNome();
-        cnpj = objClienteFisica.getCnpj();
+        cpf = objClienteFisica.getCpf();
+        telefone = objClienteFisica.getTelefone();
+        email = objClienteFisica.getEmail();
     }
 
     public static long getSerialVersionUID() {
@@ -40,11 +44,27 @@ public class ClienteFisicaDTO implements Serializable {
         this.nome = nome;
     }
 
-    public String getCnpj() {
-        return cnpj;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getTelefone(){
+        return telefone;
+    }
+
+    public void setTelefone(String telefone){
+        this.telefone = telefone;
+    }
+
+    public String getEmail(){
+        return email;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
     }
 }
