@@ -31,7 +31,7 @@ public class Instantiation implements CommandLineRunner {
 
         DateTimeFormatter sdf = DateTimeFormatter.ofPattern ("dd/MM/yyyy");
         //sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-
+/*
         //ClienteFisica herick = new ClienteFisica(null,"Herick Marques", "64525430249", Tip, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", sdf.parse("21/06/2020"));
         ClienteFisica lourranio = new ClienteFisica(1,"Lourranio Simoes Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex", "21/06/2020", Perfil.ADMIN);
         ClienteFisica fred = new ClienteFisica(2,"Fred Marques", "64525430249", TipoCliente.PESSOAFISICA, "Rua dos Java Lang", "+55 91254360", "web2ajax@gmail.com", "Ativo", "Goolgolplex",  "21/06/2020", Perfil.CLIENTE);
@@ -54,6 +54,6 @@ public class Instantiation implements CommandLineRunner {
         Curso angular =new Curso(2,"Curso ANGULAR", "Programacao Frontend com o capeta", "Demonho", "06/06/2020", "10/11/2020");
 
         cursoRepositor.saveAll(Arrays.asList(java,angular));
-
+*/
     }
 }

@@ -91,7 +91,7 @@ public class ClienteFisicaController {
         clienteFisica.setId(clienteFisica.getId());
         clienteFisica.setNome(clienteFisica.getNome());
         clienteFisica.setCpf(clienteFisica.getCpf());
-        clienteFisica.setTipo(clienteFisica.getTipo());
+        //clienteFisica.setTipo(clienteFisica.getTipo());
         clienteFisica.setEndereco(clienteFisica.getEndereco());
         clienteFisica.setTelefone(clienteFisica.getTelefone());
         clienteFisica.setEmail(clienteFisica.getEmail());
