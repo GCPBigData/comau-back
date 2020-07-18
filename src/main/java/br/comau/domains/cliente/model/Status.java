@@ -1,6 +1,7 @@
-package br.comau.model;
+package br.comau.domains.cliente.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  * @author Herick N Marques
  * herick.marques@gmail.com
@@ -49,3 +50,4 @@ public enum Status {
         return  descricao;
     }
 }
+
