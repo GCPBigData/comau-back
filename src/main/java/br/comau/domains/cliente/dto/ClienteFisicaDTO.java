@@ -1,7 +1,8 @@
-package br.comau.dto;
-import br.comau.model.ClienteFisica;
+package br.comau.domains.cliente.dto;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import br.comau.domains.cliente.model.ClienteFisica;
 
 import java.io.Serializable;
 

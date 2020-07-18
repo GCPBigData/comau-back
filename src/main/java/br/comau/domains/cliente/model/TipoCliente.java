@@ -1,4 +1,4 @@
-package br.comau.model;
+package br.comau.domains.cliente.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 

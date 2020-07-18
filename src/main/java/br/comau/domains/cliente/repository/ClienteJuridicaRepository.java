@@ -1,7 +1,8 @@
-package br.comau.repository;
+package br.comau.domains.cliente.repository;
 
-import br.comau.model.ClienteFisica;
-import br.comau.model.ClienteJuridica;
+import br.comau.domains.cliente.model.ClienteFisica;
+import br.comau.domains.cliente.model.ClienteJuridica;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

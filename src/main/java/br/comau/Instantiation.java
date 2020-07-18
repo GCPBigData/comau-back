@@ -1,8 +1,11 @@
 package br.comau;
 
+import br.comau.domains.cliente.model.ClienteFisica;
+import br.comau.domains.cliente.model.Status;
+import br.comau.domains.cliente.model.TipoCliente;
+import br.comau.domains.cliente.repository.ClienteFisicaRepository;
+import br.comau.domains.cliente.repository.ClienteJuridicaRepository;
 import br.comau.model.*;
-import br.comau.repository.ClienteFisicaRepository;
-import br.comau.repository.ClienteJuridicaRepository;
 import br.comau.repository.CursoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
