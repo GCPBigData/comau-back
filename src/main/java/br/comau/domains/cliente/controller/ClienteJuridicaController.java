@@ -1,6 +1,5 @@
 package br.comau.domains.cliente.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,73 +16,55 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.comau.domains.cliente.model.ClienteJuridica;
-import br.comau.domains.cliente.repository.ClienteJuridicaRepository;
+import br.comau.domains.cliente.service.AlteraClienteJuridicaService;
+import br.comau.domains.cliente.service.ConsultaClienteJuridicaService;
+import br.comau.domains.cliente.service.RemoveClienteJuridicaService;
+import br.comau.domains.cliente.service.SalvaClienteJuridicaService;
 import br.comau.exception.ResourceNotFoundException;
-import br.comau.service.SequenceGeneratorService;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping(value = "/api/v1/clientejuridica")
+@RequestMapping(value = "clientejuridica")
 public class ClienteJuridicaController {
 
-    @Autowired
-    private ClienteJuridicaRepository clienteJuridicaRepository;
+	@Autowired
+	private ConsultaClienteJuridicaService consultaClienteJuridicaService;
+	
+	@Autowired
+	private SalvaClienteJuridicaService salvaClienteJuridicaService;
+	
+	@Autowired
+	private AlteraClienteJuridicaService alteraClienteJuridicaService;
+	
+	@Autowired
+	private RemoveClienteJuridicaService removeClienteJuridicaService;
+    
 
-    @Autowired
-    private SequenceGeneratorService sequenceGeneratorService;
-
-    @GetMapping("/todos")
+    @GetMapping()
     public List<ClienteJuridica> getAllClienteJuridica() {
-        return clienteJuridicaRepository.findAll();
+        return this.consultaClienteJuridicaService.getAll();
     }
 
-    @GetMapping("/clientejuridica/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ClienteJuridica> getClienteJuridicaById(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
-        ClienteJuridica clienteJuridica = clienteJuridicaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("NAO ACHOU CODIGO DA CLIENTE JURIDIDCA" + id));
-        return ResponseEntity.ok().body(clienteJuridica);
+        return ResponseEntity.ok().body(this.consultaClienteJuridicaService.getById(id));
     }
 
-    @PostMapping("/clientejuridica/post")
+    @PostMapping()
     public ClienteJuridica createCleinteJuridica(@RequestBody ClienteJuridica clienteJuridica) {
-        clienteJuridica.setId(sequenceGeneratorService.generateSequence(ClienteJuridica.SEQUENCE_NAME));
-        return clienteJuridicaRepository.save(clienteJuridica);
+        return this.salvaClienteJuridicaService.saveClienteJuridica(clienteJuridica);
     }
 
-    @PutMapping("/clientejuridica/{id}")
+    @PutMapping()
     public ResponseEntity<ClienteJuridica> updateClienteJuridica(
-            @PathVariable(value = "id") Long id,
             @RequestBody ClienteJuridica clienteJuridica) throws ResourceNotFoundException {
-
-        ClienteJuridica clienteJuridicaObj = clienteJuridicaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("NAO ACHEI O ClienteJuridica :: " + id));
-
-        clienteJuridica.setId(clienteJuridica.getId());
-        clienteJuridica.setRazaoSocial(clienteJuridica.getRazaoSocial());
-        clienteJuridica.setNomeFantasia(clienteJuridica.getNomeFantasia());
-        clienteJuridica.setTipo(clienteJuridica.getTipo());
-        clienteJuridica.setCnpj(clienteJuridica.getCnpj());
-        clienteJuridica.setEndereco(clienteJuridica.getEndereco());
-        clienteJuridica.setTelefone(clienteJuridica.getTelefone());
-        clienteJuridica.setObs(clienteJuridica.getObs());
-        clienteJuridica.setStatus(clienteJuridica.getStatus());
-        clienteJuridica.setLogo(clienteJuridica.getLogo());
-
-        final ClienteJuridica updatedClienteJuridica = clienteJuridicaRepository.save(clienteJuridica);
-        return ResponseEntity.ok(clienteJuridica);
+        return ResponseEntity.ok(this.alteraClienteJuridicaService.updateClienteJuridica(clienteJuridica));
     }
 
-    @DeleteMapping("/clientejuridica/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteClienteJuridica(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
-
-        ClienteJuridica clienteJuridica = clienteJuridicaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("ID clientejuridica " + id));
-
-        clienteJuridicaRepository.delete(clienteJuridica);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("clientejuridica", Boolean.TRUE);
-        return response;
+        return this.removeClienteJuridicaService.deleteClienteJuridica(id);
     }
 }

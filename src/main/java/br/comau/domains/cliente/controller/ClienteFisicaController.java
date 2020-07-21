@@ -49,11 +49,10 @@ public class ClienteFisicaController {
         return this.consultaClienteFisicaService.getAll();
     }
 
-    @GetMapping("/clientefisica/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<ClienteFisica> getClienteFisicaById(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
-        ClienteFisica clienteFisica = this.consultaClienteFisicaService.getById(id);
-        return ResponseEntity.ok().body(clienteFisica);
+        return ResponseEntity.ok().body(this.consultaClienteFisicaService.getById(id));
     }
 
 
@@ -73,24 +72,21 @@ public class ClienteFisicaController {
         return ResponseEntity.status(status).body(listDto);
     }
 
-    @PostMapping("/clientefisica/post")
+    @PostMapping()
     public ClienteFisica createClienteFisica(@RequestBody ClienteFisica clienteFisica) {
         return this.salvaClienteFisicaService.saveClienteFisica(clienteFisica);
     }
 
-    @PutMapping("/clientefisica/{id}")
+    @PutMapping()
     public ResponseEntity<ClienteFisica> updateClienteFisica(
-            @PathVariable(value = "id") Long id,
             @RequestBody ClienteFisica clienteFisica) throws ResourceNotFoundException {
-        clienteFisica = this.alteraClienteFisicaService.updateClienteFisica(clienteFisica);
-        return ResponseEntity.ok(clienteFisica);
+        return ResponseEntity.ok(this.alteraClienteFisicaService.updateClienteFisica(clienteFisica));
     }
 
-    @DeleteMapping("/clientefisica/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteClienteFisica(@PathVariable(value = "id") Long id)
             throws ResourceNotFoundException {
-        Map<String, Boolean> response = this.removeClienteFisicaService.deleteClienteFisica(id);
-        return response;
+        return this.removeClienteFisicaService.deleteClienteFisica(id);
     }
     
     

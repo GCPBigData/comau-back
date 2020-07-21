@@ -20,7 +20,7 @@ public class RemoveClienteFisicaService {
 		ClienteFisica clienteFisica = this.clienteFisicaRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("ID clientefisica " + id));
 
-		clienteFisicaRepository.delete(clienteFisica);
+		this.clienteFisicaRepository.delete(clienteFisica);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("clientefisica", Boolean.TRUE);
 		return response;

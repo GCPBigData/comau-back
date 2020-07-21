@@ -1,4 +1,4 @@
-package br.comau.model;
+package br.comau.domains.curso.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

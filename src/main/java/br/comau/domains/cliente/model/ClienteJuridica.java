@@ -45,4 +45,6 @@ public class ClienteJuridica implements Serializable {
     Status status;
     String logo;
 
+    
+    
 }

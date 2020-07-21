@@ -17,59 +17,46 @@ import br.comau.exception.ResourceNotFoundException;
 
 @Service
 public class ConsultaClienteFisicaService {
-	
+
 	@Autowired
-    MongoTemplate mongoTemplate;
-	
+	MongoTemplate mongoTemplate;
+
 	@Autowired
 	private ClienteFisicaRepository clienteFisicaRepository;
-	
+
 	public List<ClienteFisica> getAll() {
 		return this.clienteFisicaRepository.findAll();
 	}
-	
+
 	public ClienteFisica getById(long id) throws ResourceNotFoundException {
-		ClienteFisica clienteFisica = this.clienteFisicaRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("NAO ACHOU CODIGO DA CLIENTE FISICA" + id));
-		return clienteFisica;
+		return this.clienteFisicaRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("NAO ACHOU CODIGO DA CLIENTE FISICA" + id));
+
 	}
-	
+
 	public List<ClienteFisicaDTO> getAllFilter() {
 		List<ClienteFisica> list = this.clienteFisicaRepository.findAll();
-        List<ClienteFisicaDTO> listDto = list.parallelStream()
-                .sorted(Comparator.comparing(ClienteFisica::getId).reversed())
-                .map(ClienteFisicaDTO::new)
-                .limit(10)
-                .collect(Collectors.toList());
-		return listDto;
+		return list.parallelStream().sorted(Comparator.comparing(ClienteFisica::getId).reversed())
+				.map(ClienteFisicaDTO::new).limit(10).collect(Collectors.toList());
+
 	}
-	
-	
+
 	public List<ClienteFisicaDTO> getAllFilterAtivo() {
 		List<ClienteFisica> list = this.clienteFisicaRepository.findAll();
-        List<ClienteFisicaDTO> listDto = list.parallelStream()
-                .sorted(Comparator.comparing(ClienteFisica::getId).reversed())
-                .filter(p -> p.getStatus().equals("Ativo"))
-                .map(ClienteFisicaDTO::new)
-                .limit(10)
-                .collect(Collectors.toList());
-		return listDto;
+		return list.parallelStream().sorted(Comparator.comparing(ClienteFisica::getId).reversed())
+				.filter(p -> p.getStatus().equals("Ativo")).map(ClienteFisicaDTO::new).limit(10)
+				.collect(Collectors.toList());
+
 	}
-	
+
 	public List<ClienteFisica> getAllClienteCriteria(String crit) {
 		Query query = new Query();
-        query.addCriteria(
-                new Criteria().orOperator(
-                        Criteria.where("nome").regex(crit),
-                        Criteria.where("cpf").regex(crit),
-                        Criteria.where("email").regex(crit),
-                        Criteria.where("telefone").regex(crit),
-                        Criteria.where("empresa").regex(crit),
-                        Criteria.where("status").regex(crit)
-                )
-        );
-        return mongoTemplate.find(query, ClienteFisica.class);
-		
+		query.addCriteria(
+				new Criteria().orOperator(Criteria.where("nome").regex(crit), Criteria.where("cpf").regex(crit),
+						Criteria.where("email").regex(crit), Criteria.where("telefone").regex(crit),
+						Criteria.where("empresa").regex(crit), Criteria.where("status").regex(crit)));
+		return mongoTemplate.find(query, ClienteFisica.class);
+
 	}
 
 }
